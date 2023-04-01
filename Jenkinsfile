@@ -3,7 +3,7 @@ pipeline{
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub')
 		APP_NAME = 'dev-grupo3'
-		DOCKER_IMAGE = 'jose10000/$APP_NAME:v1.$BUILD_NUMBER'
+		DOCKER_IMAGE = 'jose10000/dev-grupo3:v1.$BUILD_NUMBER'
 	}
 
 	agent any
@@ -12,7 +12,7 @@ pipeline{
 		stage('gitclone') {
 
 			steps {
-				git branch: 'main', url: 'https://github.com/jose-10000/$APP_NAME.git'
+				git branch: 'main', url: 'https://github.com/jose-10000/dev-grupo3.git'
 			}
 		}
 
