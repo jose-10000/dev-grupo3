@@ -3,7 +3,7 @@ pipeline{
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub')
 		APP_NAME = 'dev-grupo3'
-		DOCKER_IMAGE = 'jose10000/dev-grupo3:v1.$BUILD_NUMBER'
+		DOCKER_IMAGE = 'jose10000/dev-grupo3:v1.'
 	}
 
 	agent any
@@ -20,7 +20,7 @@ pipeline{
 
 			steps {
 				echo 'Building..'
-				sh 'docker build -t $DOCKER_IMAGE .'
+				sh 'docker build -t jose10000/dev-grupo3:v1.$BUILD_NUMBER .'
 			}
 		}
 
@@ -34,7 +34,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push $DOCKER_IMAGE'
+				sh 'docker push jose10000/dev-grupo3:v1.$BUILD_NUMBER'
 			}
 		}
 	}
