@@ -37,7 +37,9 @@ pipeline{
 				sh 'docker push jose10000/dev-grupo3:v1.$BUILD_NUMBER'
 			}
 		}
-		post {
+
+	}
+	post {
         always {
         // Se eliminan las imagenes creadas
             echo 'Se elimina la imagen creada'
@@ -45,7 +47,6 @@ pipeline{
             sh "docker rmi registry.hub.docker.com/$REGISTRY:v1.$BUILD_NUMBER"
             
         }
-        }
-	}
+    }
 }
 
