@@ -2,8 +2,8 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub')
-		APP_NAME = 'dev-grupo3'
-		DOCKER_IMAGE = 'jose10000/dev-grupo3:v1.'
+		REGISTRY = "jose10000/dev-grupo3"
+		DockerImage = ''
 	}
 
 	agent any
@@ -37,6 +37,15 @@ pipeline{
 				sh 'docker push jose10000/dev-grupo3:v1.$BUILD_NUMBER'
 			}
 		}
+		post {
+        always {
+        // Se eliminan las imagenes creadas
+            echo 'Se elimina la imagen creada'
+            sh "docker rmi $REGISTRY:v1.$BUILD_NUMBER"
+            sh "docker rmi registry.hub.docker.com/$REGISTRY:v1.$BUILD_NUMBER"
+            
+        }
+        }
 	}
 }
 
