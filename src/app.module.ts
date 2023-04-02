@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { StoreModule } from './store/store.module';
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://root:root_password@127.0.0.1:27017/?authMechanism=DEFAULT'),
+    MongooseModule.forRoot('mongodb://root:root_password@mongodb:27017/?authMechanism=DEFAULT'),
     StoreModule,
   ],
   controllers: [AppController],

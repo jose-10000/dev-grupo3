@@ -3,6 +3,37 @@
   services:
 
     app-grupo-3:
-      image: grupo-3-app:v1.0.4
+      container_name: dev-grupo3
+      image: jose10000/dev-grupo3:v1.11
       ports:
         - 3000:3000
+      networks:
+        red_web:
+          ipv4_address: 192.168.10.10
+        red_interna:
+          ipv4_address: 192.168.20.10
+      hostname: servidor_web
+
+    db:
+      container_name: mongodb
+      image: mongo:latest
+      environment:
+      - MONGO_INITDB_ROOT_USERNAME:root
+        MONGO_INITDB_ROOT_PASSWORD:root_password
+      ports:
+        - 27017:27017
+      # Use root/example as user/password credentials
+      restart: always
+      networks:
+        red_interna:
+          ipv4_address: 192.168.20.20
+      hostname: mongodb
+  networks:
+    red_web:
+        ipam:
+            config:
+              - subnet: 192.168.10.0/24
+    red_interna:
+        ipam:
+            config:
+              - subnet: 192.168.20.0/24
