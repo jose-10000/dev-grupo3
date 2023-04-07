@@ -4,7 +4,7 @@
 
     app-grupo-3:
       container_name: dev-grupo3
-      image: jose10000/dev-grupo3:v1.11
+      image: jose10000/dev-grupo3:v1.12
       ports:
         - 3000:3000
       networks:
@@ -12,14 +12,18 @@
           ipv4_address: 192.168.10.10
         red_interna:
           ipv4_address: 192.168.20.10
-      hostname: servidor_web
+      hostname: store
 
     db:
       container_name: mongodb
+      volumes:
+        - ~/data_mongo:/data/db
       image: mongo:latest
       environment:
-      - MONGO_INITDB_ROOT_USERNAME:root
-        MONGO_INITDB_ROOT_PASSWORD:root_password
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: root_password
+        MONGO_INITDB_DATABASE: store
+
       ports:
         - 27017:27017
       # Use root/example as user/password credentials
@@ -28,6 +32,7 @@
         red_interna:
           ipv4_address: 192.168.20.20
       hostname: mongodb
+      
   networks:
     red_web:
         ipam:

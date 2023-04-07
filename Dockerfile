@@ -9,6 +9,6 @@ WORKDIR /app
 COPY package*.json ./
 ENV WEB_PORT=3000
 EXPOSE 3000
-RUN npm install --only=production
+RUN npm install
 COPY --from=builder /app/dist dist
-CMD [ "yarn", "start:prod" ]
+CMD [ "yarn", "start:dev" ]
