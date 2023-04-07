@@ -6,7 +6,7 @@ import { StoreModule } from './store/store.module';
 import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://root:root_password@localhost:27017/?authMechanism=DEFAULT'),
+    MongooseModule.forRoot('mongodb://root:root_password@mongodb:27017/?authMechanism=DEFAULT'),
     StoreModule,
     AuthModule,
   ],
