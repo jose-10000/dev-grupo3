@@ -4,7 +4,7 @@
 
     app-grupo-3:
       container_name: dev-grupo3
-      image: jose10000/dev-grupo3:v1.16
+      image: jose10000/dev-grupo3:v1.17
       ports:
         - 3000:3000
       networks:

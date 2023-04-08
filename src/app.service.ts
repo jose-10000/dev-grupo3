@@ -3,6 +3,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'DevOps Bootcamp!';
+    return 'DevOps Bootcamp! Grupo-3!';
   }
 }
