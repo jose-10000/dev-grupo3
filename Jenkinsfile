@@ -1,7 +1,5 @@
 pipeline{
 
-	agent any
-
 	tools {
 		maven 'maven-3.5.2'
 	}
@@ -10,19 +8,18 @@ pipeline{
 		DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub')
 		REGISTRY = "jose10000/dev-grupo3"
 		DockerImage = ''
-		SNYK_TOKEN = credentials('snykID')
+		SNYK_TOKEN=credentials('snykID')
 	}
 
-
+	agent any
 
 	stages {
 		stage('gitclone') {
 
 			steps {
 				git branch: 'main', url: 'https://github.com/jose-10000/dev-grupo3.git'
-			sh "mvn install"
 			}
-			}
+		}
 		
 
 		stage('Build') {
@@ -37,6 +34,7 @@ pipeline{
 
 			steps {
 				echo 'Scanning..'
+				sh "mvn install"
 				script {
 					snykSecurity severity: 'critical', snykInstallation: 'snyk', snykToken: snykID
 					def snykReport = sh(
@@ -65,7 +63,7 @@ pipeline{
 				sh 'docker push jose10000/dev-grupo3:v1.$BUILD_NUMBER'
 			}
 		}
-}
+	}
 	
 	post {
         always {
