@@ -3,7 +3,7 @@ pipeline{
 	agent any
 
 	tools {
-		maven 'MAVEM'
+		maven 'maven-3.5.2'
 	}
 
 	environment {
@@ -23,7 +23,7 @@ pipeline{
 			sh "mvn install"
 			}
 			}
-		}
+		
 
 		stage('Build') {
 
@@ -65,7 +65,7 @@ pipeline{
 				sh 'docker push jose10000/dev-grupo3:v1.$BUILD_NUMBER'
 			}
 		}
-
+}
 	
 	post {
         always {
