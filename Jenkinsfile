@@ -2,7 +2,7 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub')
-		REGISTRY = "jose10000/dev-grupo3:v1.$BUILD_NUMBER"
+		REGISTRY = "jose10000/devscanned-g3:v1.$BUILD_NUMBER"
 		DockerImage = ''
 		GITHUB_CREDENTIALS=credentials('github-jenkins')
 		ISSUE_TITLE = "$JOB_NAME $BUILD_DISPLAY_NAME falló"
@@ -17,7 +17,7 @@ pipeline{
 		stage('gitclone') {
 
 			steps {
-				git branch: 'snyk-fix-60801f4e2e144da8fbbb2483b3021ce6', url: 'https://github.com/jose-10000/dev-grupo3.git'
+				git branch: 'main', url: 'https://github.com/jose-10000/dev-grupo3.git'
 			}
 		}
 
