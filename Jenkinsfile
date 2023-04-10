@@ -17,7 +17,7 @@ pipeline{
 		stage('gitclone') {
 
 			steps {
-				git branch: 'main', url: 'https://github.com/jose-10000/dev-grupo3.git'
+				git branch: 'snyk-fix-60801f4e2e144da8fbbb2483b3021ce6', url: 'https://github.com/jose-10000/dev-grupo3.git'
 			}
 		}
 
