@@ -1,5 +1,5 @@
-**Buscar en el sitio de MongoDB Atlas el ORG_ID
-**
+Buscar en el sitio de MongoDB Atlas el ORG_ID
+
 	export ORG_ID=642887b0
 
 En el sitio de MongoDB Atlas generar una API KEY
