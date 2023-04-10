@@ -2,7 +2,7 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('jenkins-dockerhub')
-		REGISTRY = "jose10000/devscanned-g3:v1.$BUILD_NUMBER"
+		REGISTRY = "jose10000/dev-grupo3:v1.$BUILD_NUMBER"
 		DockerImage = ''
 		GITHUB_CREDENTIALS=credentials('github-jenkins')
 		ISSUE_TITLE = "$JOB_NAME $BUILD_DISPLAY_NAME falló"
