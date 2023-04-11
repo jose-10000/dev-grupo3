@@ -14,14 +14,42 @@ pipeline{
 	agent any
 
 	stages {
-		stage('gitclone') {
+		stage('Git-clone') {
 
 			steps {
 				git branch: 'main', url: 'https://github.com/jose-10000/dev-grupo3.git'
 			}
 		}
 
-		stage('Build') {
+		stage('NPM-test'){
+            steps {
+				// Se instala nodeJS desde el plugin nodeJS
+                nodejs(nodeJSInstallationName: 'node-18-15'){
+                    echo 'Realizando test antes de crear la imagen'
+                    sh """
+                    npm install
+                    npm run test
+                    """
+                                    }
+            }
+
+        }
+
+        stage('NPM-audit') {
+            steps {
+				echo 'Realizando npm audit'
+				// Catcherror es para que, si encuentra fallos, el pipeline no se detenga
+				// y se pueda seguir con el resto de las fases
+				// https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/#catcherror-catch-error-and-set-build-result-to-failure
+				// Aqui si se produce un error, el estado del build para a ser UNSTABLE
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+					// Y ejecuta sin parar el resto de las fases
+					sh 'npm audit > ${NPM_REPORT_FILE}'
+                }
+            }
+        }
+
+		stage('Docker-build') {
 
 			steps {
 				echo 'Building..'
@@ -29,9 +57,9 @@ pipeline{
 			}
 		}
 
-    stage('Scan') {
+    stage('Snyk-Security-Scan') {
         steps {
-        echo 'Scanning...'
+        echo 'Testing...'
         snykSecurity(
             snykInstallation: 'Snyk-grupo3',
             snykTokenId: 'snykID',
@@ -44,14 +72,14 @@ pipeline{
         }
     }
 
-		stage('Login') {
+		stage('Docker-login') {
 
 			steps {
 				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-
-		stage('Push') {
+		
+		stage('Push2DockerHub') {
 
 			steps {
 				sh 'docker push $REGISTRY'
@@ -59,11 +87,21 @@ pipeline{
 		}
 
 	}
+
 	post {
         always {
         // Se eliminan las imagenes creadas
             echo 'Se elimina la imagen creada'
             sh "docker rmi $REGISTRY"
         }
-    }
+		unstable{
+			echo 'npm audit falló'
+                sh """
+                echo ${GITHUB_CREDENTIALS_PSW} | gh auth login --with-token
+                gh issue create -t '${ISSUE_TITLE}' -F ${NPM_REPORT_FILE} -R ${URL_REPO}
+				echo 'Se ha creado un issue en el repositorio'
+                """
+}
+
+}
 }
