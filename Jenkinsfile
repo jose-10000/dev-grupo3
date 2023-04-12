@@ -41,7 +41,7 @@ pipeline{
 				// Catcherror es para que, si encuentra fallos, el pipeline no se detenga
 				// y se pueda seguir con el resto de las fases
 				// https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/#catcherror-catch-error-and-set-build-result-to-failure
-				// Aqui si se produce un error, el estado del build para a ser UNSTABLE
+				// Aqui si se produce un error, el estado del build pasa a ser UNSTABLE
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
 					// Y ejecuta sin parar el resto de las fases
 					sh 'npm audit > ${NPM_REPORT_FILE}'
@@ -49,6 +49,8 @@ pipeline{
             }
         }
 
+		// Se crea la imagen
+		// Dockek se instalo en el servidor de Jenkins
 		stage('Docker-build') {
 
 			steps {
@@ -57,6 +59,7 @@ pipeline{
 			}
 		}
 
+	// Para poder usar snyk, hay que instalar el plugin de snyk
     stage('Snyk-Security-Scan') {
         steps {
         echo 'Testing...'

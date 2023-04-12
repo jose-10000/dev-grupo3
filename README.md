@@ -75,3 +75,18 @@ Nest is [MIT licensed](LICENSE).
 Jenkinsfile
 
 git issues
+
+Para jenkins server son necesarios los siguientes complementos
+
+	instalar npm
+	instalar gh	#####
+	instalar groovy	
+	instalar JDK
+	instalar los siguientes plugins
+	snyk
+	git client
+	git server
+	git
+	github plugin
+	github issue
+	https://docs.snyk.io/integrations/ci-cd-integrations/jenkins-integration-overview ####### para optener snyk token
