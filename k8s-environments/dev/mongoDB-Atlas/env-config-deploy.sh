@@ -6,6 +6,10 @@
 # You can find your Org ID and API Key in the MongoDB Atlas UI
 # https://docs.atlas.mongodb.com/configure-api-access/
 
+# Install jq
+echo "Installing jq"
+sudo apt-get install jq
+
 # Insert your mongoDB Atlas Org ID below
 read -p  "Insert your mongoDB Atlas Org ID: " ORG_ID
 export ORG_ID=$ORG_ID
@@ -77,5 +81,5 @@ unset ATLAS_DB_PASSWORD
 unset ATLAS_DB_USER
 
 # At the end execute the following command to get conect to the application
-
+echo "Leave the terminal open "
 minikube tunnel

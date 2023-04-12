@@ -8,7 +8,7 @@ spec:
       databaseName: "admin"
   projectRef:
     name: dev-grupo3-project
-  username: jose10000
+  username: jose10000 #
   passwordSecretRef:
-    name: atlaspassword
+    name: atlaspassword 
 
